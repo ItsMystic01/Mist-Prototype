@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Customer {
+public class ChatRoom {
 
     @Id
     @SequenceGenerator(name = "customer_id_sequence", sequenceName = "customer_id_sequence", allocationSize = 1)
@@ -15,14 +15,14 @@ public class Customer {
     private String email;
     private Integer age;
 
-    public Customer(Integer id, String name, String email, Integer age) {
+    public ChatRoom(Integer id, String name, String email, Integer age) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
     }
 
-    public Customer() {}
+    public ChatRoom() {}
 
     public Integer getId() {
         return id;
@@ -60,8 +60,8 @@ public class Customer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(age, customer.age);
+        ChatRoom chatRoom = (ChatRoom) o;
+        return Objects.equals(id, chatRoom.id) && Objects.equals(name, chatRoom.name) && Objects.equals(email, chatRoom.email) && Objects.equals(age, chatRoom.age);
     }
 
     @Override
