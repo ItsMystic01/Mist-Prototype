@@ -1,4 +1,4 @@
-package com.mist.corps;
+package com.mist.corps.ChatRoomController;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
