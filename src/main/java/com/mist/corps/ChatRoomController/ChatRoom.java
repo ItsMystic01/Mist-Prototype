@@ -1,9 +1,11 @@
 package com.mist.corps.ChatRoomController;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.Objects;
 
+@Getter
 @Entity
 public class ChatRoom {
 
@@ -19,18 +21,6 @@ public class ChatRoom {
     }
 
     public ChatRoom() {}
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
 
     public void setName(String name) {
         this.name = name;

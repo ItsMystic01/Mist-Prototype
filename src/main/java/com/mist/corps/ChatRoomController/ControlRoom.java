@@ -3,6 +3,7 @@ package com.mist.corps.ChatRoomController;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/chat-room")
@@ -24,6 +25,11 @@ public class ControlRoom {
         chatRoom.setName(request.name());
 
         CHAT_ROOM_REPOSITORY.save(chatRoom);
+    }
+
+    @GetMapping("{id}")
+    public Optional<ChatRoom> getChatRoom(@PathVariable("id") Integer id) {
+        return CHAT_ROOM_REPOSITORY.findById(id);
     }
 
     @DeleteMapping("{id}")
