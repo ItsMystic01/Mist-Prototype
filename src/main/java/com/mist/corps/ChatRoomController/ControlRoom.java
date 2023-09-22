@@ -1,12 +1,14 @@
 package com.mist.corps.ChatRoomController;
 
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/chat-room")
+//@RequestMapping("/chat-room")
 public class ControlRoom {
     private final ChatRoomRepository CHAT_ROOM_REPOSITORY;
 
@@ -30,6 +32,29 @@ public class ControlRoom {
     @GetMapping("{id}")
     public Optional<ChatRoom> getChatRoom(@PathVariable("id") Integer id) {
         return CHAT_ROOM_REPOSITORY.findById(id);
+    }
+    @GetMapping("/students")
+    public List<ChatRoom> getChatRoom() {
+        List<ChatRoom> chatRooms = new ArrayList<>();
+        chatRooms.add(new ChatRoom(1, "John"));
+        chatRooms.add(new ChatRoom(2, "Steve"));
+        chatRooms.add(new ChatRoom(3, "Steven"));
+        chatRooms.add(new ChatRoom(4, "Jobs"));
+        chatRooms.add(new ChatRoom(5, "Gates"));
+        chatRooms.add(new ChatRoom(6, "Markian"));
+        return chatRooms;
+    }
+
+//    http://localhost:8080/student/4/Tom
+//    @GetMapping("/student/{id}/{name}")
+//    public ChatRoom getChatRoom(@PathVariable("id") Integer id, @PathVariable("name") String name) {
+//        return new ChatRoom(id, name);
+//    }
+
+    // http://localhost:8080/student/query?id=1&name=Tom
+    @GetMapping("/student/query")
+    public ChatRoom getChatRoom(@RequestParam(name = "id") Integer id, @RequestParam(name = "name") String name) {
+        return new ChatRoom(id, name);
     }
 
     @DeleteMapping("{id}")

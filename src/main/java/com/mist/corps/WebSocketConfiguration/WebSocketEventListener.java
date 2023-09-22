@@ -32,7 +32,7 @@ public class WebSocketEventListener {
                     .sender(username)
                     .build();
 
-            MESSAGE_TEMPLATE.convertAndSend("/topic/public", chatMessage);
+            MESSAGE_TEMPLATE.convertAndSend("/topic/dot", chatMessage);
         }
     }
 
