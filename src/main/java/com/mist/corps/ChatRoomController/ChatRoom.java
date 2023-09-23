@@ -13,6 +13,7 @@ public class ChatRoom {
     @SequenceGenerator(name = "chatroom_id_sequence", sequenceName = "chatroom_id_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chatroom_id_sequence")
     private Integer id;
+    @Getter
     private String name;
 
     public ChatRoom(Integer id, String name) {
