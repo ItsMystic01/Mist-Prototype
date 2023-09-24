@@ -13,16 +13,14 @@
 </noscript>
 
     <ul>
-        <li th:each="chatMessage : ${chatMessages}">
+            <li th:each="chatRoom : ${chatRooms}">
 
-            <span th:text="${chatMessage.getSender()}"></span>
-            <span th:text="${chatMessage.getContent()}"></span>
+            <span th:text="${chatRoom.getName()}"></span>
         </li>
     </ul>
 
-    <form th:action="@{/new-message}" method="post" th:object="${newMessage}">
-        <input type="text" th:field="*{sender}">
-        <input type="text" th:field="*{content}">
+    <form th:action="@{/new-room}" method="post" th:object="${newRoom}">
+        <input type="text" th:field="*{name}">
         <input type="submit">
     </form>
 

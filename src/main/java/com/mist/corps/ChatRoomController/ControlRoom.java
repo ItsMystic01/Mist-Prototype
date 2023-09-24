@@ -15,10 +15,10 @@ public class ControlRoom {
         CHAT_ROOM_REPOSITORY = chatRoomRepository;
     }
 
-//    @GetMapping
-//    public List<ChatRoom> getChatRooms() {
-//        return CHAT_ROOM_REPOSITORY.findAll();
-//    }
+    @GetMapping("/json")
+    public List<ChatRoom> getChatRooms() {
+        return CHAT_ROOM_REPOSITORY.findAll();
+    }
 //
 //    @PostMapping
 //    public void addChatRoom(@RequestBody NewChatRoomRequest request) {
@@ -37,7 +37,7 @@ public class ControlRoom {
 //        List<ChatRoom> chatRooms = new ArrayList<>();
 ////        chatRooms.add(new ChatRoom(1, "John"));
 ////        chatRooms.add(new ChatRoom(2, "Steve"));
-//        chatRooms.add(new ChatRoom(3, "Steven"));
+////        chatRooms.add(new ChatRoom(3, "Steven"));
 ////        chatRooms.add(new ChatRoom(4, "Jobs"));
 ////        chatRooms.add(new ChatRoom(5, "Gates"));
 ////        chatRooms.add(new ChatRoom(6, "Markian"));
