@@ -19,10 +19,26 @@
         </li>
     </ul>
 
-    <form th:action="@{/new-room}" method="post" th:object="${newRoom}">
+    <form th:action="@{/create-new-room}" method="post" th:object="${newRoom}">
         <input type="text" th:field="*{name}">
         <input type="submit">
     </form>
+
+    <br>
+
+<form th:action="@{/delete-room/id}" method="post">
+    <label>
+        <input type="text" name="id" placeholder="ID Number: ">
+    </label>
+    <button>Delete By ID</button>
+</form>
+
+<form th:action="@{/delete-room/name}" method="post">
+    <label>
+        <input type="text" name="name" placeholder="Channel Name">
+    </label>
+    <button>Delete By Name</button>
+</form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
