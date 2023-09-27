@@ -2,13 +2,11 @@ package com.mist.corps.Test;
 
 import com.mist.corps.ChatRoomController.ChatRoom;
 import com.mist.corps.ChatRoomController.ChatRoomRepository;
-import com.mist.corps.ChatRoomController.NewChatRoomRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class ChatRoomController {
@@ -42,6 +40,17 @@ public class ChatRoomController {
         CHAT_ROOM_REPOSITORY.deleteById(id);
         return "redirect:/dynamic";
     }
+    @GetMapping("/channel/{id}")
+    public String findChannel(@PathVariable Integer id, Model model) {
+        ChatRoom chatRoom = CHAT_ROOM_REPOSITORY.findById(id).orElse(null);
+
+        if (chatRoom != null) {
+            model.addAttribute("certainChatRoom", chatRoom);
+            return "chatroom";
+        } else {
+            return null;
+        }
+    }
 
     @PostMapping("/delete-room/name")
     public String deleteByName(@RequestParam("name") String name) {
@@ -49,11 +58,4 @@ public class ChatRoomController {
         CHAT_ROOM_REPOSITORY.deleteAllInBatch(chatRoom);
         return "redirect:/dynamic";
     }
-
-//    @PostMapping("delete-room/{chatRoom}")
-//    public String deleteRoom(@PathVariable ChatRoom chatRoom) {
-//        System.out.println(chatRoom.getId());
-////        CHAT_ROOM_REPOSITORY.deleteById(Integer.parseInt(id));
-//        return "redirect:/dynamic";
-//    }
 }

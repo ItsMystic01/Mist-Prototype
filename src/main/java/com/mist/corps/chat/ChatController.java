@@ -1,6 +1,6 @@
 package com.mist.corps.chat;
 
-import com.mist.corps.ChatRoomController.ControlRoom;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -12,15 +12,16 @@ import java.util.Objects;
 @Controller
 public class ChatController {
 
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/dot")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+    @MessageMapping("/chat/{chatRoomClass}/sendMessage")
+    @SendTo("/topic/{chatRoomClass}")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage, @DestinationVariable String chatRoomClass) {
         return chatMessage;
     }
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/dot")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+    @MessageMapping("/chat/{chatRoomName}/addUser")
+    @SendTo("/topic/{chatRoomName}")
+    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor,
+                               @DestinationVariable String chatRoomName) {
         Objects.requireNonNull(headerAccessor.getSessionAttributes()).put("username", chatMessage.getSender());
 
         return chatMessage;

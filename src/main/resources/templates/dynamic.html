@@ -15,7 +15,7 @@
     <ul>
             <li th:each="chatRoom : ${chatRooms}">
 
-            <span th:text="${chatRoom.getName()}"></span>
+            <a th:href="@{/}"><span th:text="${chatRoom.getName()}" /></a>
         </li>
     </ul>
 
@@ -40,9 +40,15 @@
     <button>Delete By Name</button>
 </form>
 
+<ul>
+    <li th:each="chatRoom : ${chatRooms}">
+        <a th:id="chatRoomName" th:href="@{'/channel/' + ${chatRoom.getId()}}" th:text="${chatRoom.getName()}" />
+    </li>
+</ul>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/js/lobby.js"></script>
 </body>
 
 </html>

@@ -1,12 +1,10 @@
 'use strict';
 
-const usernamePage = document.querySelector("#username-page");
-const chatPage = document.querySelector("#chat-page");
-const usernameForm = document.querySelector("#usernameForm");
 const messageForm = document.querySelector("#messageForm");
 const messageInput = document.querySelector("#message");
 const messageArea = document.querySelector("#messageArea");
 const connectingElement = document.querySelector(".connecting");
+const channelName = document.querySelector(".chatRoomName")
 
 let stompClient = null;
 let username = null;
@@ -17,26 +15,21 @@ const colors = [
 ];
 
 function connect(event) {
-    username = document.querySelector('#name').value.trim();
-    if (username) {
-        usernamePage.classList.add("hidden");
-        chatPage.classList.remove("hidden");
+    username = usernameGenerator();
+    console.log(username)
 
-        let socket = new SockJS('/chat');
-        stompClient = Stomp.over(socket);
+    let socket = new SockJS('/chat');
+    stompClient = Stomp.over(socket);
 
-        stompClient.connect({}, onConnected, onError);
-
-    }
+    stompClient.connect({}, onConnected, onError);
 
     event.preventDefault();
 }
 
 function onConnected() {
-    stompClient.subscribe('/topic/dot', onMessageReceived);
+    stompClient.subscribe(`/topic/${channelName.textContent}`, onMessageReceived);
 
-    stompClient.send('/app/chat.addUser', {}, JSON.stringify({sender: username, type: 'JOIN'}));
-
+    stompClient.send(`/app/chat/${channelName.textContent}/addUser`, {}, JSON.stringify({sender: "username", type: 'JOIN'}), { chatRoomName: channelName.textContent });
 
     connectingElement.classList.add("hidden");
 }
@@ -56,7 +49,7 @@ function sendMessage(event) {
             content: messageInput.value,
             type: "CHAT"
         };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send(`/app/chat/${channelName.textContent}/sendMessage`, {}, JSON.stringify(chatMessage), { chatRoomClass: channelName.textContent });
         messageInput.value = "";
     }
 
@@ -117,5 +110,12 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-usernameForm.addEventListener('submit', connect, true);
+function usernameGenerator() {
+    const randomNumber = Math.floor(Math.random() * (1000000 - 1 + 1)) + 1;
+
+    console.log(randomNumber.toString());
+    return randomNumber.toString();
+}
+
+document.addEventListener('DOMContentLoaded', connect);
 messageForm.addEventListener('submit', sendMessage, true);
