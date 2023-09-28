@@ -16,7 +16,6 @@ const colors = [
 
 function connect(event) {
     username = usernameGenerator();
-    console.log(username)
 
     let socket = new SockJS('/chat');
     stompClient = Stomp.over(socket);
@@ -29,7 +28,7 @@ function connect(event) {
 function onConnected() {
     stompClient.subscribe(`/topic/${channelName.textContent}`, onMessageReceived);
 
-    stompClient.send(`/app/chat/${channelName.textContent}/addUser`, {}, JSON.stringify({sender: "username", type: 'JOIN'}), { chatRoomName: channelName.textContent });
+    stompClient.send(`/app/chat/${channelName.textContent}/addUser`, {}, JSON.stringify({sender: username, type: 'JOIN'}), { chatRoomName: channelName.textContent });
 
     connectingElement.classList.add("hidden");
 }
@@ -63,6 +62,7 @@ function onMessageReceived(payload) {
     let messageElement = document.createElement("li");
 
     if(message.type === "JOIN") {
+        // messageArea.clear()
         messageElement.classList.add("event-message");
         message.content = message.sender + ' joined!';
     } else if (message.type === "LEAVE") {
@@ -113,7 +113,6 @@ function getAvatarColor(messageSender) {
 function usernameGenerator() {
     const randomNumber = Math.floor(Math.random() * (1000000 - 1 + 1)) + 1;
 
-    console.log(randomNumber.toString());
     return randomNumber.toString();
 }
 

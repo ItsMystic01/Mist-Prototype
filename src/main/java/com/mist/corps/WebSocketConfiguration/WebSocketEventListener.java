@@ -1,9 +1,9 @@
 package com.mist.corps.WebSocketConfiguration;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import com.mist.corps.chat.ChatMessage;
 import com.mist.corps.chat.MessageType;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
@@ -32,7 +32,7 @@ public class WebSocketEventListener {
                     .sender(username)
                     .build();
 
-            MESSAGE_TEMPLATE.convertAndSend("/topic/dot", chatMessage);
+            MESSAGE_TEMPLATE.convertAndSendToUser(username, "/topic/dwadawd", chatMessage);
         }
     }
 
